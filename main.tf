@@ -1,6 +1,8 @@
 provider "digitalocean" {}
 
-resource "digitalocean_vpc" "my_vpc" {
+module "my_vpc" {
+  source   = "./modules/vpc"
+
   name     = "clj-network"
   region   = "tor1"
   ip_range = "10.10.10.0/24"
@@ -12,7 +14,7 @@ module "kubernetes" {
   cluster_name       = "clj-cluster"
   auto_upgrade       = true
   region             = "tor1"
-  vpc_uuid           = digitalocean_vpc.my_vpc.id
+  vpc_uuid           = module.my_vpc.vpc_id
 
   auto_scale  = false
   min_nodes   = 2
