@@ -8,6 +8,14 @@ module "my_vpc" {
   ip_range = "10.10.10.0/24"
 }
 
+module "my_container_registry" {
+  source  = "./modules/registry"
+
+  name                   = "my-registry"
+  subscription_tier_slug = "basic"
+  region                 = "tor1"
+}
+
 module "kubernetes" {
   source  = "./modules/doks"
 
